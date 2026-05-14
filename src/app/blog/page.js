@@ -1,24 +1,27 @@
-import Link from "next/link";
+import { Suspense } from "react";
+import Posts from "./components/posts";
 
 export default async function Blog() {
+  console.log("Server Component")
   // DB Calls
 
-  // Data Fetching
-  const data = await fetch('https://jsonplaceholder.typicode.com/posts', {cache: "no-cache"})
-  const posts = await data.json()
+  // Data Fetching | Server Components
+  // const data = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  // cache: "no-cache",
+  // });
+  // const posts = await data.json();
 
+  // Data Fetching | Client Component
+  const promise = fetch(
+    "https://jsonplaceholder.typicode.com/posts",
+  ).then((res) => res.json());
 
   return (
     <div>
       <h1 className="text-2xl font-semibold">Blog Page</h1>
-      {posts.map((post) => (
-        <div key={post.id} className="border my-2 rounded-sm p-2">
-          <Link href={`/blog/${post.id}`}>
-            <h2 className="bg-green-400/50 max-w-max">Title: {post.title}</h2>
-          </Link>
-          <p>Body: {post.body}</p>
-        </div>
-      ))}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Posts promise={promise} />
+      </Suspense>
     </div>
   );
 }
