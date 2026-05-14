@@ -23,9 +23,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <header className="p-5 flex items-center justify-between">
-          <Link href={"/"}>Logo</Link>
+      <body className="min-h-full flex flex-col max-w-370 mx-auto px-2">
+        <header className="p-5 px-0 flex items-center justify-between sticky top-0 bg-black/70">
+          <Link href={"/"}>Next.js</Link>
           <nav className="flex gap-5">
             <Link href={"/"}>Home</Link>
             <Link href={"/blog"}>Blog</Link>
